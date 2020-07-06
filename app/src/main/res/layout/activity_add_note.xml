@@ -8,10 +8,20 @@
     tools:context=".AddNoteActivity">
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/add_note_activity_title_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name" />
+        tools:text="Title" />
+
+    <EditText
+        android:id="@+id/add_note_activity_description_editText_multi"
+        android:layout_width="match_parent"
+        android:layout_height="539dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        tools:text="Description" />
+
 </LinearLayout>
