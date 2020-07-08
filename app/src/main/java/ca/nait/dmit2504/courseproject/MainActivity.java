@@ -14,27 +14,29 @@ import android.widget.Toast;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ca.nait.dmit2504.courseproject.databinding.ActivityMainBinding;
 
 
 public class MainActivity extends AppCompatActivity {
     // data binding declaration
-    ActivityMainBinding mActivityMainBinding;
+    private ActivityMainBinding mActivityMainBinding;
     MainActivityListeners handlers;
+    NotesDB notesDB;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityMainBinding = DataBindingUtil.setContentView(this,R.layout.activity_main);
-        NotesDB notesDB = new NotesDB(this);
+        notesDB = new NotesDB(this);
+        setupRecyclerView();
 
         // Initialize (construct) main activity listeners.
         handlers = new MainActivityListeners(this);
         // Pass click handlers internal class.
         mActivityMainBinding.setClickHandlers(handlers);
-        mActivityMainBinding.setNotesDB(notesDB);
 
         RecyclerViewClickListener listener = (view, position) -> {
             Toast.makeText(MainActivity.this, "Position " + position, Toast.LENGTH_SHORT).show();
@@ -54,6 +56,17 @@ public class MainActivity extends AppCompatActivity {
         rvNotes.setAdapter(adapter);
         rvNotes.setLayoutManager(new LinearLayoutManager(this));
 
+    }
+
+    public void setupRecyclerView(){
+        RecyclerView recyclerView = mActivityMainBinding.activityMainRecyclerview;
+        LinearLayoutManager layoutManager= new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        List<Note> movieList = notesDB.getAllNotesPOJO();
+
+        NotesRecyclerAdapter adapter = new NotesRecyclerAdapter(movieList);
+        recyclerView.setAdapter(adapter);
     }
 
     public class MainActivityListeners{

@@ -7,9 +7,6 @@
         <variable
             name="clickHandlers"
             type="ca.nait.dmit2504.courseproject.MainActivity.MainActivityListeners" />
-        <variable
-            name="notesDB"
-            type="ca.nait.dmit2504.courseproject.NotesDB" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
