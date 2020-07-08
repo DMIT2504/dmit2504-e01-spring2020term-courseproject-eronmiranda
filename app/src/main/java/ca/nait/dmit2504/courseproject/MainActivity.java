@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         List<Note> movieList = notesDB.getAllNotesPOJO();
 
-        NotesRecyclerAdapter adapter = new NotesRecyclerAdapter(movieList, mListener);
+        NotesRecyclerAdapter adapter = new NotesRecyclerAdapter(movieList);
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(mItemDecoration);
         recyclerView.setAdapter(adapter);

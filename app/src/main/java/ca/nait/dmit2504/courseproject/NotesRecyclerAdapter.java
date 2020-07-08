@@ -15,11 +15,9 @@ import ca.nait.dmit2504.courseproject.databinding.ListItemBinding;
 
 public class NotesRecyclerAdapter extends RecyclerView.Adapter<NotesRecyclerAdapter.NoteViewHolder>{
     private List<Note> notesList;
-    private Context mContext;
 
-    public NotesRecyclerAdapter(List<Note> notes, Context context){
+    public NotesRecyclerAdapter(List<Note> notes){
         notesList = notes;
-        mContext = context;
     }
     @NonNull
     @Override
@@ -46,14 +44,12 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NotesRecyclerAdap
             super(listItemBinding.getRoot());
             mListItemBinding = listItemBinding;
 
-            // missing code
+            // missing code for click event
         }
         public void bind(Note note){
             mListItemBinding.setNote(note);
             mListItemBinding.executePendingBindings();
         }
     }
-    public void onNoteClick(Note note){
-        Toast.makeText(mContext, "note id: " + note.getId(), Toast.LENGTH_SHORT).show();
-    }
+
 }
