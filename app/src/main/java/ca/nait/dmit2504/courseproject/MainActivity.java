@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         mListener = this::getListener;
 
+        // Creates divider for every item in recyclerview
         mItemDecoration = new
                 DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
 

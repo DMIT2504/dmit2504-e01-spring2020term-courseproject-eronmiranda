@@ -45,7 +45,7 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NotesRecyclerAdap
         }
         public void bind(Note note, RecyclerViewClickListener listener){
             mListItemBinding.setNote(note);
-            mListItemBinding.executePendingBindings();
+            mListItemBinding.executePendingBindings(); // update the view now
             itemView.setOnClickListener((Note)->{
                 listener.onClick(this.itemView,note);
             });
