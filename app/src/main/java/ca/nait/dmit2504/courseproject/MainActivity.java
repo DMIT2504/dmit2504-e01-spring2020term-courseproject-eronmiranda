@@ -12,8 +12,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-
-import java.util.ArrayList;
 import java.util.List;
 
 import ca.nait.dmit2504.courseproject.databinding.ActivityMainBinding;
@@ -38,14 +36,16 @@ public class MainActivity extends AppCompatActivity {
         // Pass click handlers internal class.
         mActivityMainBinding.setClickHandlers(handlers);
 
-        mListener = (view, position) -> {
-            Toast.makeText(MainActivity.this, "Position " + position, Toast.LENGTH_SHORT).show();
-        };
+        mListener = this::getListener;
 
         mItemDecoration = new
                 DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
 
         setupRecyclerView();
+    }
+
+    public void getListener (View view, Note note){
+        Toast.makeText(MainActivity.this, "Position id " + note.getId(), Toast.LENGTH_SHORT).show();
     }
 
     public void setupRecyclerView(){
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         List<Note> movieList = notesDB.getAllNotesPOJO();
 
-        NotesRecyclerAdapter adapter = new NotesRecyclerAdapter(movieList);
+        NotesRecyclerAdapter adapter = new NotesRecyclerAdapter(movieList,mListener);
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(mItemDecoration);
         recyclerView.setAdapter(adapter);

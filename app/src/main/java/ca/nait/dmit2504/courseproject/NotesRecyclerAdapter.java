@@ -1,10 +1,7 @@
 package ca.nait.dmit2504.courseproject;
 
-import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,9 +12,11 @@ import ca.nait.dmit2504.courseproject.databinding.ListItemBinding;
 
 public class NotesRecyclerAdapter extends RecyclerView.Adapter<NotesRecyclerAdapter.NoteViewHolder>{
     private List<Note> notesList;
+    RecyclerViewClickListener mListener;
 
-    public NotesRecyclerAdapter(List<Note> notes){
+    public NotesRecyclerAdapter(List<Note> notes, RecyclerViewClickListener listener){
         notesList = notes;
+        mListener = listener;
     }
     @NonNull
     @Override
@@ -30,7 +29,7 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NotesRecyclerAdap
     @Override
     public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
         Note note = notesList.get(position);
-        holder.bind(note);
+        holder.bind(note, mListener);
     }
 
     @Override
@@ -46,9 +45,12 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NotesRecyclerAdap
 
             // missing code for click event
         }
-        public void bind(Note note){
+        public void bind(Note note, RecyclerViewClickListener listener){
             mListItemBinding.setNote(note);
             mListItemBinding.executePendingBindings();
+            itemView.setOnClickListener((Note)->{
+                listener.onClick(this.itemView,note);
+            });
         }
     }
 
