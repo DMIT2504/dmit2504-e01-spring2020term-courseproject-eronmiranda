@@ -1,7 +1,10 @@
 package ca.nait.dmit2504.courseproject;
 
+import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,9 +15,11 @@ import ca.nait.dmit2504.courseproject.databinding.ListItemBinding;
 
 public class NotesRecyclerAdapter extends RecyclerView.Adapter<NotesRecyclerAdapter.NoteViewHolder>{
     private List<Note> notesList;
+    private Context mContext;
 
-    public NotesRecyclerAdapter(List<Note> notes){
+    public NotesRecyclerAdapter(List<Note> notes, Context context){
         notesList = notes;
+        mContext = context;
     }
     @NonNull
     @Override
@@ -35,15 +40,20 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NotesRecyclerAdap
         return notesList != null ? notesList.size(): 0;
     }
 
-    class NoteViewHolder extends RecyclerView.ViewHolder{
+    public class NoteViewHolder extends RecyclerView.ViewHolder{
         private ListItemBinding mListItemBinding;
         public NoteViewHolder(ListItemBinding listItemBinding){
             super(listItemBinding.getRoot());
             mListItemBinding = listItemBinding;
+
+            // missing code
         }
         public void bind(Note note){
             mListItemBinding.setNote(note);
             mListItemBinding.executePendingBindings();
         }
+    }
+    public void onNoteClick(Note note){
+        Toast.makeText(mContext, "note id: " + note.getId(), Toast.LENGTH_SHORT).show();
     }
 }

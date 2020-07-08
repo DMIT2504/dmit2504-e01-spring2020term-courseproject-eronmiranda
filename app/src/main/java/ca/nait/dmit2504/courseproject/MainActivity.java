@@ -22,8 +22,9 @@ import ca.nait.dmit2504.courseproject.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
     // data binding declaration
     private ActivityMainBinding mActivityMainBinding;
-    MainActivityListeners handlers;
-    NotesDB notesDB;
+    private NotesDB notesDB;
+    private RecyclerViewClickListener mListener;
+    private RecyclerView.ItemDecoration mItemDecoration;
 
 
     @Override
@@ -31,31 +32,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mActivityMainBinding = DataBindingUtil.setContentView(this,R.layout.activity_main);
         notesDB = new NotesDB(this);
-        setupRecyclerView();
 
         // Initialize (construct) main activity listeners.
-        handlers = new MainActivityListeners(this);
+        MainActivityListeners handlers = new MainActivityListeners(this);
         // Pass click handlers internal class.
         mActivityMainBinding.setClickHandlers(handlers);
 
-        RecyclerViewClickListener listener = (view, position) -> {
+        mListener = (view, position) -> {
             Toast.makeText(MainActivity.this, "Position " + position, Toast.LENGTH_SHORT).show();
         };
 
-        RecyclerView rvNotes = mActivityMainBinding.activityMainRecyclerview;
-
-        ArrayList<Note> notes = notesDB.getAllNotesPOJO();
-
-        NotesAdapter adapter = new NotesAdapter(notes, listener);
-
-        RecyclerView.ItemDecoration itemDecoration = new
+        mItemDecoration = new
                 DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
 
-        rvNotes.setHasFixedSize(true);
-        rvNotes.addItemDecoration(itemDecoration);
-        rvNotes.setAdapter(adapter);
-        rvNotes.setLayoutManager(new LinearLayoutManager(this));
-
+        setupRecyclerView();
     }
 
     public void setupRecyclerView(){
@@ -65,7 +55,9 @@ public class MainActivity extends AppCompatActivity {
 
         List<Note> movieList = notesDB.getAllNotesPOJO();
 
-        NotesRecyclerAdapter adapter = new NotesRecyclerAdapter(movieList);
+        NotesRecyclerAdapter adapter = new NotesRecyclerAdapter(movieList, mListener);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.addItemDecoration(mItemDecoration);
         recyclerView.setAdapter(adapter);
     }
 
