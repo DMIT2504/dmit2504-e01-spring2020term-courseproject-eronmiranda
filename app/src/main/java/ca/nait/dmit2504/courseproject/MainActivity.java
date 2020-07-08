@@ -34,14 +34,15 @@ public class MainActivity extends AppCompatActivity {
         // Pass click handlers internal class.
         mActivityMainBinding.setClickHandlers(handlers);
 
-
         notesDB.createNote("test","description");
-
-        RecyclerView rvNotes = mActivityMainBinding.activityMainRecyclerview;
         RecyclerViewClickListener listener = (view, position) -> {
             Toast.makeText(MainActivity.this, "Position " + position, Toast.LENGTH_SHORT).show();
         };
+
+        RecyclerView rvNotes = mActivityMainBinding.activityMainRecyclerview;
+
         ArrayList<Note> notes = notesDB.getAllNotesPOJO();
+
         NotesAdapter adapter = new NotesAdapter(notes, listener);
         rvNotes.setAdapter(adapter);
         rvNotes.setLayoutManager(new LinearLayoutManager(this));
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         public MainActivityListeners(Context context){
             this.context = context;
         }
-        public void onAddNote(View view){
+        public void onAddClick(View view){
             Intent intent = new Intent(MainActivity.this, AddNoteActivity.class);
             MainActivity.this.startActivity(intent);
         }

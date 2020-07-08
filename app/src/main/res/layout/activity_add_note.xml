@@ -7,6 +7,9 @@
         <variable
             name="Note"
             type="ca.nait.dmit2504.courseproject.Note" />
+        <variable
+            name="clickHandlers"
+            type="ca.nait.dmit2504.courseproject.AddNoteActivity.AddNoteListeners" />
     </data>
 
     <LinearLayout
@@ -38,7 +41,8 @@
             android:id="@+id/add_note_activity_save_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/save_button_text" />
+            android:text="@string/save_button_text"
+            android:onClick="@{clickHandlers::onAddNote}"/>
 
     </LinearLayout>
 </layout>
