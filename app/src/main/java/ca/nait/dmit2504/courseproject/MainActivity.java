@@ -2,6 +2,7 @@ package ca.nait.dmit2504.courseproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
         handlers = new MainActivityListeners(this);
         // Pass click handlers internal class.
         mActivityMainBinding.setClickHandlers(handlers);
+        mActivityMainBinding.setNotesDB(notesDB);
 
-        notesDB.createNote("test","description");
         RecyclerViewClickListener listener = (view, position) -> {
             Toast.makeText(MainActivity.this, "Position " + position, Toast.LENGTH_SHORT).show();
         };
@@ -44,6 +45,12 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Note> notes = notesDB.getAllNotesPOJO();
 
         NotesAdapter adapter = new NotesAdapter(notes, listener);
+
+        RecyclerView.ItemDecoration itemDecoration = new
+                DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+
+        rvNotes.setHasFixedSize(true);
+        rvNotes.addItemDecoration(itemDecoration);
         rvNotes.setAdapter(adapter);
         rvNotes.setLayoutManager(new LinearLayoutManager(this));
 
