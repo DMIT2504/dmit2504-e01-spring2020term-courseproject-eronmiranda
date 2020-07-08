@@ -1,62 +1,53 @@
 package ca.nait.dmit2504.courseproject;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cursoradapter.widget.SimpleCursorAdapter;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
+
+import java.util.ArrayList;
 
 import ca.nait.dmit2504.courseproject.databinding.ActivityMainBinding;
-import ca.nait.dmit2504.courseproject.databinding.ListItemBinding;
 
 
 public class MainActivity extends AppCompatActivity {
     // data binding declaration
     ActivityMainBinding mActivityMainBinding;
     MainActivityListeners handlers;
-    ListItemBinding mListItemBinding;
-    private NotesDB mNotesDB;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityMainBinding = DataBindingUtil.setContentView(this,R.layout.activity_main);
-        mNotesDB = new NotesDB(this);
+        NotesDB notesDB = new NotesDB(this);
+
+        // Initialize (construct) main activity listeners.
         handlers = new MainActivityListeners(this);
+        // Pass click handlers internal class.
         mActivityMainBinding.setClickHandlers(handlers);
+
+
+        notesDB.createNote("test","description");
+
+        RecyclerView rvNotes = mActivityMainBinding.activityMainRecyclerview;
+        RecyclerViewClickListener listener = (view, position) -> {
+            Toast.makeText(MainActivity.this, "Position " + position, Toast.LENGTH_SHORT).show();
+        };
+        ArrayList<Note> notes = notesDB.getAllNotesPOJO();
+        NotesAdapter adapter = new NotesAdapter(notes, listener);
+        rvNotes.setAdapter(adapter);
+        rvNotes.setLayoutManager(new LinearLayoutManager(this));
+
     }
 
-    private void bindListNotesView(){
-        Cursor dbCursor = mNotesDB.getAllNotes();
-
-        // Define an array of columns names used by the cursor
-        String[] fromFields = {
-                NotesDB.TABLE_NOTE_COLUMN_TITLE,
-                NotesDB.TABLE_NOTE_COLUMN_DESCRIPTION,
-                NotesDB.TABLE_NOTE_COLUMN_DATE
-        };
-        // Define an array of resource ids in the listview item layout
-        int[] toViews = new int[] {
-                mListItemBinding.listItemTitleTextview.getId(),
-                mListItemBinding.listItemDescriptionTextview.getId(),
-                mListItemBinding.listItemDateTextview.getId()
-        };
-        // Create a SimpleCursorAdapter for the ListView
-        SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(this,
-                mListItemBinding.getRoot().getId(),
-                dbCursor,
-                fromFields,
-                toViews,
-                0);
-        mActivityMainBinding.activityMainNotesListview.setAdapter(cursorAdapter);
-    }
-    // this internal class handles all the click events for main activity.
     public class MainActivityListeners{
         Context context;
         public MainActivityListeners(Context context){
