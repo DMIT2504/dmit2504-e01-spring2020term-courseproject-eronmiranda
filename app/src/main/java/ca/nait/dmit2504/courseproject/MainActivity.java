@@ -45,7 +45,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getListener (View view, Note note){
-        Toast.makeText(MainActivity.this, "Position id " + note.getId(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(MainActivity.this, ViewNoteActivity.class);
+        intent.putExtra("noteId", String.valueOf(note.getId()));
+        MainActivity.this.startActivity(intent);
     }
 
     public void setupRecyclerView(){

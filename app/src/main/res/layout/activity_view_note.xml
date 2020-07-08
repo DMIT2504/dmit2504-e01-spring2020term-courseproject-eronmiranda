@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="note"
+            type="ca.nait.dmit2504.courseproject.Note" />
+        <variable
+            name="clickHandlers"
+            type="ca.nait.dmit2504.courseproject.ViewNoteActivity.ViewNoteActivityListeners" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".AddNoteActivity">
+
+        <EditText
+            android:id="@+id/view_note_activity_title_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/enter_title_hint"
+            android:inputType="textPersonName"
+            android:autofillHints=""
+            android:text="@{note.title}"/>
+
+        <EditText
+            android:id="@+id/view_note_activity_description_editText_multi"
+            android:layout_width="match_parent"
+            android:layout_height="584dp"
+            android:autofillHints=""
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="@string/enter_notes_hint"
+            android:inputType="textMultiLine"
+            android:text="@{note.description}" />
+
+        <Button
+            android:id="@+id/view_note_activity_update_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:onClick="@{clickHandlers::onUpdateClick}"
+            android:text="@string/update_button_text" />
+
+        <Button
+            android:id="@+id/view_note_activity_delete_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:onClick="@{clickHandlers::onDeleteClick}"
+            android:text="@string/delete_button_text" />
+
+    </LinearLayout>
+</layout>

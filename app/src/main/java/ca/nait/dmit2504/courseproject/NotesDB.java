@@ -123,4 +123,9 @@ public class NotesDB extends SQLiteOpenHelper {
         return foundNote;
     }
 
+    public int deleteNote(long id){
+        SQLiteDatabase db = getWritableDatabase();
+        return db.delete(TABLE_NOTE, BaseColumns._ID + " = ?", new String[] {String.valueOf(id)});
+    }
+
 }

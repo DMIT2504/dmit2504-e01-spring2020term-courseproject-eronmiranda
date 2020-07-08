@@ -11,13 +11,11 @@ import android.view.View;
 import android.widget.Toast;
 
 import ca.nait.dmit2504.courseproject.databinding.ActivityAddNoteBinding;
-import ca.nait.dmit2504.courseproject.databinding.ActivityMainBinding;
 
 
 public class AddNoteActivity extends AppCompatActivity {
-    ActivityMainBinding mActivityMainBinding;
-    ActivityAddNoteBinding mActivityAddNoteBinding;
-    AddNoteListeners handlers;
+    private ActivityAddNoteBinding mActivityAddNoteBinding;
+    private AddNoteListeners mHandlers;
     private NotesDB mNotesDB;
 
 
@@ -25,8 +23,9 @@ public class AddNoteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityAddNoteBinding = DataBindingUtil.setContentView(this,R.layout.activity_add_note);
-        handlers = new AddNoteListeners(this);
-        mActivityAddNoteBinding.setClickHandlers(handlers);
+        mHandlers = new AddNoteListeners(this);
+        mActivityAddNoteBinding.setClickHandlers(mHandlers);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mNotesDB = new NotesDB(this);
 

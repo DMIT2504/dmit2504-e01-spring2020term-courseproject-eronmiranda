@@ -42,8 +42,6 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NotesRecyclerAdap
         public NoteViewHolder(ListItemBinding listItemBinding){
             super(listItemBinding.getRoot());
             mListItemBinding = listItemBinding;
-
-            // missing code for click event
         }
         public void bind(Note note, RecyclerViewClickListener listener){
             mListItemBinding.setNote(note);

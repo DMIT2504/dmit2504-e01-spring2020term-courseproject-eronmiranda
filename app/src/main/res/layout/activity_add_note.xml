@@ -5,9 +5,6 @@
 
     <data>
         <variable
-            name="notesDB"
-            type="ca.nait.dmit2504.courseproject.NotesDB" />
-        <variable
             name="clickHandlers"
             type="ca.nait.dmit2504.courseproject.AddNoteActivity.AddNoteListeners" />
     </data>
@@ -22,10 +19,11 @@
             android:id="@+id/add_note_activity_title_editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autofillHints=""
             android:ems="10"
+            android:fontFamily="@font/raleway"
             android:hint="@string/enter_title_hint"
-            android:inputType="textPersonName"
-            android:autofillHints="" />
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/add_note_activity_description_editText_multi"
@@ -33,6 +31,7 @@
             android:layout_height="363dp"
             android:autofillHints=""
             android:ems="10"
+            android:fontFamily="@font/raleway"
             android:gravity="start|top"
             android:hint="@string/enter_notes_hint"
             android:inputType="textMultiLine" />
@@ -41,8 +40,9 @@
             android:id="@+id/add_note_activity_save_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/save_button_text"
-            android:onClick="@{clickHandlers::onAddNote}"/>
+            android:fontFamily="@font/raleway"
+            android:onClick="@{clickHandlers::onAddNote}"
+            android:text="@string/save_button_text" />
 
     </LinearLayout>
 </layout>
