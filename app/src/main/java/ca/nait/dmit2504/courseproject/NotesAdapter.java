@@ -10,8 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import ca.nait.dmit2504.courseproject.databinding.ListItemBinding;
+
+// Recycler View Adapter.
 public class NotesAdapter
         extends RecyclerView.Adapter<NotesAdapter.ViewHolder>{
+    private ListItemBinding mListItemBinding;
     private List<Note> mNotes;
     private RecyclerViewClickListener mListener;
     public class ViewHolder extends RecyclerView.ViewHolder
@@ -46,7 +50,7 @@ public class NotesAdapter
         }
     }
 
-    // Pass in the contact array into the constructor
+    // Pass in the notes array into the constructor
     public NotesAdapter(List<Note> notes, RecyclerViewClickListener listener) {
         mNotes = notes;
         mListener = listener;

@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="note"
+            type="ca.nait.dmit2504.courseproject.Note" />
     </data>
 
     <LinearLayout
@@ -16,6 +18,7 @@
             android:id="@+id/list_item_title_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@{note.title}"
             tools:text="list_item_title" />
 
         <TextView
@@ -23,12 +26,14 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:text="@{note.description}"
             tools:text="list_item_description" />
 
         <TextView
             android:id="@+id/list_item_date_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@{note.date}"
             tools:text="list_item_date" />
     </LinearLayout>
 </layout>
