@@ -16,27 +16,30 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         tools:context=".AddNoteActivity">
 
         <EditText
             android:id="@+id/view_note_activity_title_editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autofillHints=""
             android:ems="10"
             android:hint="@string/enter_title_hint"
             android:inputType="textPersonName"
-            android:autofillHints=""
-            android:text="@{note.title}"/>
+            android:text="@{note.title}" />
 
         <EditText
             android:id="@+id/view_note_activity_description_editText_multi"
             android:layout_width="match_parent"
-            android:layout_height="584dp"
+            android:layout_height="wrap_content"
             android:autofillHints=""
             android:ems="10"
             android:gravity="start|top"
             android:hint="@string/enter_notes_hint"
             android:inputType="textMultiLine"
+            android:minHeight="274dp"
             android:text="@{note.description}" />
 
         <Button

@@ -20,7 +20,7 @@ import ca.nait.dmit2504.courseproject.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
     // data binding declaration
     private ActivityMainBinding mActivityMainBinding;
-    private NotesDB notesDB;
+//    private NotesDB notesDB;
     private RecyclerViewClickListener mListener;
     private RecyclerView.ItemDecoration mItemDecoration;
 
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityMainBinding = DataBindingUtil.setContentView(this,R.layout.activity_main);
-        notesDB = new NotesDB(this);
+//        notesDB = new NotesDB(this);
 
         // Initialize (construct) main activity listeners.
         MainActivityListeners handlers = new MainActivityListeners(this);
@@ -56,9 +56,11 @@ public class MainActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager= new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        List<Note> movieList = notesDB.getAllNotesPOJO();
+//        List<Note> movieList = notesDB.getAllNotesPOJO();
+        NoteDatabase noteDB = NoteDatabase.getNoteDatabase(getApplicationContext());
+        List<Note> noteList = noteDB.noteDAO().getAllNotes();
 
-        NotesRecyclerAdapter adapter = new NotesRecyclerAdapter(movieList,mListener);
+        NotesRecyclerAdapter adapter = new NotesRecyclerAdapter(noteList,mListener);
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(mItemDecoration);
         recyclerView.setAdapter(adapter);

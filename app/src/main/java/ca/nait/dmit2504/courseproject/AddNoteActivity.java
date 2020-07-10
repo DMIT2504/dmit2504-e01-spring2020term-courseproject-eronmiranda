@@ -16,19 +16,18 @@ import ca.nait.dmit2504.courseproject.databinding.ActivityAddNoteBinding;
 
 public class AddNoteActivity extends AppCompatActivity {
     private ActivityAddNoteBinding mActivityAddNoteBinding;
-    private AddNoteListeners mHandlers;
-    private NotesDB mNotesDB;
+//    private NotesDB mNotesDB;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityAddNoteBinding = DataBindingUtil.setContentView(this,R.layout.activity_add_note);
-        mHandlers = new AddNoteListeners(this);
-        mActivityAddNoteBinding.setClickHandlers(mHandlers);
+        AddNoteListeners handlers = new AddNoteListeners(this);
+        mActivityAddNoteBinding.setClickHandlers(handlers);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        mNotesDB = new NotesDB(this);
+//        mNotesDB = new NotesDB(this);
 
 
     }
@@ -42,8 +41,15 @@ public class AddNoteActivity extends AppCompatActivity {
                     !mActivityAddNoteBinding.addNoteActivityTitleEditText.getText().toString().isEmpty()
                     && !mActivityAddNoteBinding.addNoteActivityDescriptionEditTextMulti.getText().toString().isEmpty()
             ) {
-                mNotesDB.createNote(mActivityAddNoteBinding.addNoteActivityTitleEditText.getText().toString(),
-                        mActivityAddNoteBinding.addNoteActivityDescriptionEditTextMulti.getText().toString());
+//                mNotesDB.createNote(mActivityAddNoteBinding.addNoteActivityTitleEditText.getText().toString(),
+////                        mActivityAddNoteBinding.addNoteActivityDescriptionEditTextMulti.getText().toString());
+                NoteDatabase noteDB = NoteDatabase.getNoteDatabase(getApplicationContext());
+                Note note = new Note(
+                        mActivityAddNoteBinding.addNoteActivityTitleEditText.getText().toString(),
+                        mActivityAddNoteBinding.addNoteActivityDescriptionEditTextMulti.getText().toString()
+                );
+                noteDB.noteDAO().insertNote(note);
+
                 Toast.makeText(AddNoteActivity.this, "New note added", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(AddNoteActivity.this, MainActivity.class);
                 AddNoteActivity.this.startActivity(intent);
