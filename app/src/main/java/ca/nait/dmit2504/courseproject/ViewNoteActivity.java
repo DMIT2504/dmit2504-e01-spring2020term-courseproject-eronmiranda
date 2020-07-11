@@ -5,6 +5,7 @@ import androidx.databinding.DataBindingUtil;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ public class ViewNoteActivity extends AppCompatActivity {
     private NoteDatabase noteDB;
     private String mNoteId;
     private Note mNote;
+    private MediaPlayer mMediaPlayer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,16 +53,23 @@ public class ViewNoteActivity extends AppCompatActivity {
                     mActivityViewNoteBinding.viewNoteActivityDescriptionEditTextMulti.getText().toString()
             );
             noteDB.noteDAO().updateNote(editedNote);
+            playSound(R.raw.cake);
             Toast.makeText(ViewNoteActivity.this, "Note updated", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(ViewNoteActivity.this, MainActivity.class);
             ViewNoteActivity.this.startActivity(intent);
         }
         public void onDeleteClick(View view){
             noteDB.noteDAO().deleteNote(mNote);
+            playSound(R.raw.juntos);
+
 //            mNotesDB.deleteNote(Integer.parseInt(mNoteId));
             Toast.makeText(ViewNoteActivity.this, "Note deleted successfully", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(ViewNoteActivity.this, MainActivity.class);
             ViewNoteActivity.this.startActivity(intent);
+        }
+        public void playSound(int id){
+            mMediaPlayer = MediaPlayer.create(context, id);
+            mMediaPlayer.start();
         }
     }
 }
